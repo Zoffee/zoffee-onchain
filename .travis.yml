@@ -1,0 +1,11 @@
+matrix:
+  include:
+    - os: linux
+      language: python
+      python: 3.6
+    - os: osx
+      language: cpp
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then nvm install --lts ; fi
+script:
+  - make test
