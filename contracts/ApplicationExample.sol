@@ -1,21 +1,23 @@
 pragma solidity ^0.4.24;
 
-import "./Verifier.sol";
+import "./Interfaces.sol";
+
 
 contract ApplicationExample
 {
-	VerifierInterface internal m_verifier;
+	Zoffee_VerifierInterface internal m_verifier;
 	bytes32 internal m_vk;
 
-    constructor( VerifierInterface verifier_address, bytes32 vk )
+    constructor( Zoffee_VerifierInterface verifier_address, bytes32 vk )
+        public
     {
     	m_verifier = verifier_address;
     	m_vk = vk;
     }
 
     function SomeActionRequiringProof( bytes32 guid, uint256 some_input )
-    	returns (bool)
+    	public returns (bool)
     {
-        return m_verifier.VerifyStatus( m_vk, guid, sha256(abi.encodePacked(some_input, uint256(1234))));
+        return m_verifier.IsProofValid( m_vk, guid, sha256(abi.encodePacked(some_input, uint256(1234))));
     }
 }
